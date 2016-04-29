@@ -10,17 +10,18 @@ import android.view.View;
 /**
  * Created by 何凌 on 2016/4/29.
  */
-public class CustomView1 extends View{
+public class CustomViewDynamicRing extends View{
 
     private Paint mPaint;
     private Context mContext;
-    private int radiu;
+    private int currentRadiu;
+    private int maxRadiu;
 
-    public CustomView1(Context context) {
+    public CustomViewDynamicRing(Context context) {
         this(context, null);
     }
 
-    public CustomView1(Context context, AttributeSet attrs) {
+    public CustomViewDynamicRing(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
         initPaint();
@@ -53,26 +54,35 @@ public class CustomView1 extends View{
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawCircle(getMeasuredWidth()/2 , getMeasuredHeight()/2 , radiu, mPaint);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        //去除padding值后，获得有效半径
+        int realWidthRadiu = (widthSize - getPaddingLeft() - getPaddingRight())/2;
+        int realHeightRadiu = (heightSize - getPaddingTop() - getPaddingBottom())/2;
+        maxRadiu = Math.min(realWidthRadiu, realHeightRadiu);
     }
 
-    public synchronized void setRadiu(int radiu){
-        this.radiu = radiu;
-        invalidate();
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawCircle((getMeasuredWidth() -getPaddingRight() + getPaddingLeft())/2 ,
+                (getMeasuredHeight() -getPaddingBottom() + getPaddingTop())/2 , currentRadiu, mPaint);
     }
 
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
             while (true){
-                if(radiu < 200){
-                    radiu += 5;
+                if(currentRadiu < maxRadiu){
+                    currentRadiu += 5;
 
                 }
                 else{
-                    radiu = 0;
+                    currentRadiu = 0;
                 }
                 postInvalidate();
                 try {
