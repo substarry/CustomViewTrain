@@ -16,6 +16,7 @@ public class CustomViewDynamicRing extends View{
     private Context mContext;
     private int currentRadiu;
     private int maxRadiu;
+    private int x,y;
 
     public CustomViewDynamicRing(Context context) {
         this(context, null);
@@ -63,14 +64,16 @@ public class CustomViewDynamicRing extends View{
         //去除padding值后，获得有效半径
         int realWidthRadiu = (widthSize - getPaddingLeft() - getPaddingRight())/2;
         int realHeightRadiu = (heightSize - getPaddingTop() - getPaddingBottom())/2;
-        maxRadiu = Math.min(realWidthRadiu, realHeightRadiu);
+        maxRadiu = currentRadiu = Math.min(realWidthRadiu, realHeightRadiu);
+
+        x = (widthSize -getPaddingRight() + getPaddingLeft())/2;
+        y = (heightSize -getPaddingBottom() + getPaddingTop())/2;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawCircle((getMeasuredWidth() -getPaddingRight() + getPaddingLeft())/2 ,
-                (getMeasuredHeight() -getPaddingBottom() + getPaddingTop())/2 , currentRadiu, mPaint);
+        canvas.drawCircle(x, y , currentRadiu, mPaint);
     }
 
     private Runnable runnable = new Runnable() {

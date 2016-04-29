@@ -17,10 +17,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <com.substarry.customviewtrain.CustomViewDynamicRing
                 android:id="@+id/cv1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:padding="20dp"/>
+
+            <com.substarry.customviewtrain.CustomViewColorMatrix
+                android:id="@+id/cv2"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:padding="20dp"/>
+
+            <com.substarry.customviewtrain.CustomViewLightingColor
+                android:id="@+id/cv3"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:padding="20dp"/>
+
+            <com.substarry.customviewtrain.CustomViewPorterDuffColor
+                android:id="@+id/cv4"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:padding="20dp"/>
