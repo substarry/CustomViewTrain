@@ -15,6 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".DynamicRingActivity">
+        </activity>
+
+        <activity android:name=".ColorFilterActivity">
+        </activity>
+
+        <activity android:name=".FontViewActivity">
+        </activity>
     </application>
 
 </manifest>
